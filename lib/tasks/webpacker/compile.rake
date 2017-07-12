@@ -16,6 +16,7 @@ namespace :webpacker do
     $stdout.puts "\e[31m#{env}\e[0m"
 
     $stdout.puts "Calling Open3"
+    system "./bin/webpack"
     stdout_str, stderr_str, status = Open3.capture3(env, "./bin/webpack")
     $stdout.puts "Open3 Called"
     $stdout.puts "Status:"
