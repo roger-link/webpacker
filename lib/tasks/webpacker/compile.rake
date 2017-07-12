@@ -6,8 +6,9 @@ namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
     $stdout.puts "[Webpacker] Compiling assets 🎉"
-
+    $stdout.puts "Asset Host:"
     asset_host = ActionController::Base.helpers.compute_asset_host
+    $stdout.puts "\e[31m#{asset_host}\e[0m"
     env = { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => asset_host }.freeze
 
     stdout_str, stderr_str, status = Open3.capture3(env, "./bin/webpack")
