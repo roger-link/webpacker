@@ -9,9 +9,21 @@ namespace :webpacker do
     $stdout.puts "Asset Host:"
     asset_host = ActionController::Base.helpers.compute_asset_host
     $stdout.puts "\e[31m#{asset_host}\e[0m"
+    $stdout.puts "Node ENV:"
+    $stdout.puts "\e[31m#{Webpacker.env}\e[0m"
     env = { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => asset_host }.freeze
+    $stdout.puts "ENV:"
+    $stdout.puts "\e[31m#{env}\e[0m"
 
+    $stdout.puts "Calling Open3"
     stdout_str, stderr_str, status = Open3.capture3(env, "./bin/webpack")
+    $stdout.puts "Open3 Called"
+    $stdout.puts "Status:"
+    $stdout.puts "\e[31m#{status}\e[0m"
+    $stdout.puts "Standard Error:"
+    $stdout.puts "\e[31m#{stderr_str}\e[0m"
+    $stdout.puts "Standard Out:"
+    $stdout.puts "\e[31m#{stdout_str}\e[0m"
 
     if status.success?
       $stdout.puts "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m"
